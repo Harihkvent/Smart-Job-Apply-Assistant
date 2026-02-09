@@ -3,9 +3,9 @@ sheet_range: "Sheet1!A:H"
 browser_profile_dir: "/home/user/.config/google-chrome/Default"
 resume_base_path: "/home/user/resume_base.pdf"
 tailor_temp_dir: "/tmp/tailor_resumes"
-llm_provider: "ollama"
-llm_endpoint: "http://localhost:11434"
-llm_model: "llama3"
+llm_provider: "krutrim"
+llm_endpoint: "https://cloud.olakrutrim.com/v1"
+llm_model: "Krutrim-spectre-v2"
 max_concurrent_workers: 2
 random_delay_min_ms: 200
 random_delay_max_ms: 1200
