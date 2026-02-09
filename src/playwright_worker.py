@@ -111,7 +111,7 @@ def _find_label(page, element, field_id):
 
 _FIELD_RULES = [
     (["first name"], lambda p: p.get("name", "").split()[0] if p.get("name") else ""),
-    (["last name", "surname"], lambda p: p["name"].split()[-1] if p.get("name") and " " in p["name"] else ""),
+    (["last name", "surname"], lambda p: p.get("name", "").split()[-1] if p.get("name") and " " in p.get("name", "") else ""),
     (["name", "full name"], lambda p: p.get("name", "")),
     (["email", "e-mail"], lambda p: p.get("email", "")),
     (["phone", "mobile", "telephone"], lambda p: p.get("phone", "")),
@@ -252,6 +252,7 @@ def prepare_application(apply_link, resume_path, cover_text, profile, config):
     browser_profile_dir = config.get("browser_profile_dir", "")
 
     pw = sync_playwright().start()
+    context = None
     try:
         context = pw.chromium.launch_persistent_context(
             browser_profile_dir,
@@ -274,6 +275,7 @@ def prepare_application(apply_link, resume_path, cover_text, profile, config):
 
         screenshot_path = take_screenshot(page, screenshot_dir)
 
+        # Browser left open intentionally for manual review/submit.
         return {
             "platform": platform,
             "fields_filled": filled,
@@ -282,6 +284,9 @@ def prepare_application(apply_link, resume_path, cover_text, profile, config):
         }
     except Exception as exc:
         logger.error("prepare_application failed: %s", exc)
+        if context:
+            context.close()
+        pw.stop()
         return {
             "platform": "unknown",
             "fields_filled": [],
