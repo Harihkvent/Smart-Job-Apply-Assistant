@@ -58,12 +58,21 @@ function loadJobs() {
     const tbody = document.getElementById("jobs");
     tbody.innerHTML = "";
     data.jobs.forEach(j => {
-      let action = "";
-      if (j.status === "pending")
-        action = `<button class="btn-start" onclick="startJob(${j.id})">Start</button>`;
-      else if (j.status === "ready_for_submit")
-        action = `<button class="btn-confirm" onclick="confirmJob(${j.id})">Confirm Submit</button>`;
-      tbody.innerHTML += `<tr><td>${j.id}</td><td>${j.company || ""}</td><td>${j.role || ""}</td><td><span class="status">${j.status}</span></td><td>${action}</td></tr>`;
+      const tr = document.createElement("tr");
+      const cells = [j.id, j.company || "", j.role || "", j.status];
+      cells.forEach(v => { const td = document.createElement("td"); td.textContent = v; tr.appendChild(td); });
+      const actionTd = document.createElement("td");
+      if (j.status === "pending") {
+        const btn = document.createElement("button");
+        btn.className = "btn-start"; btn.textContent = "Start";
+        btn.onclick = () => startJob(j.id); actionTd.appendChild(btn);
+      } else if (j.status === "ready_for_submit") {
+        const btn = document.createElement("button");
+        btn.className = "btn-confirm"; btn.textContent = "Confirm Submit";
+        btn.onclick = () => confirmJob(j.id); actionTd.appendChild(btn);
+      }
+      tr.appendChild(actionTd);
+      tbody.appendChild(tr);
     });
   });
 }
