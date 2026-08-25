@@ -1,0 +1,24 @@
+{
+  "name": "Your Full Name",
+  "email": "you@example.com",
+  "phone": "+91XXXXXXXXXX",
+  "location": "City, State, India",
+  "graduation_date": "2026-04-30",
+  "degree": "B.Tech Information Technology",
+  "cgpa": "7.54",
+  "experience": [
+    {
+      "company": "Example Corp",
+      "title": "Software Intern",
+      "from": "2025-05",
+      "to": "2025-07",
+      "bullets": [
+        "Built REST APIs serving 1000+ requests/day",
+        "Automated CI/CD pipeline reducing deploy time by 40%"
+      ]
+    }
+  ],
+  "skills": ["python", "java", "c++", "sql", "docker", "git"],
+  "linkedin": "https://linkedin.com/in/yourprofile",
+  "resume_base_path": "/path/to/base_resume.pdf"
+}
